@@ -91,11 +91,11 @@ const parseRequest = (request: Request | undefined, ctx: Context, path: string[]
       .map(f => {
         const parsed = parseRequest(fields[f], ctx, [...path, f])
 
-        if (~f.indexOf('on_')) {
+        if (~f.indexOf('_on_')) {
           ctx.fragmentCounter++
           const implementationFragment = `f${ctx.fragmentCounter}`
 
-          ctx.fragments.push(`fragment ${implementationFragment} on ${f.split('on_')[1]}${parsed}`)
+          ctx.fragments.push(`fragment ${implementationFragment} on ${f.split('_on_')[1]}${parsed}`)
 
           return `...${implementationFragment}`
         } else {
